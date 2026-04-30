@@ -22,6 +22,7 @@ export default function DadosCentro() {
     { label: "Mato Grosso", value: 7.0 },
     { label: "Treze de Junho", value: 6.2 },
   ];
+  const exibirBlocosProprietarios = true;
 
   const proprietarios = [
     { label: "Ministério do Exército", value: 22.9 },
@@ -278,243 +279,247 @@ export default function DadosCentro() {
         </div>
       </section>
 
-      {/* ===== CARD 2 ===== */}
-      <section className="dados-card">
-        <div className="chart-header-left">
-          Área de Lote por Proprietário (Top 10)
-          <span className="chart-subtitle"> - Planurb, 2025</span>
-        </div>
+      {exibirBlocosProprietarios && (
+        <>
+          {/* ===== CARD 2 ===== */}
+          <section className="dados-card">
+            <div className="chart-header-left">
+              Área de Lote por Proprietário (Top 10)
+              <span className="chart-subtitle"> - Planurb, 2025</span>
+            </div>
 
-        <div className="chart-box">
-          <svg
-            width="340"
-            height="340"
-            viewBox="0 0 340 340"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Área de Lote por Proprietário (Top 10)"
-            onMouseLeave={() => setHoverProprietario(null)}
-          >
-            <g transform="translate(170,170)">
-              {slicesProprietario.map(({ path, i }) => (
-                <path
-                  key={`p-${i}`}
-                  d={path}
-                  fill={`var(--blue-${i + 1})`}
-                  stroke="#fff"
-                  strokeWidth="2"
-                  className={[
-                    isDimmed(hoverProprietario, i) ? "dimmed" : "",
-                    hoverProprietario === i ? "hovered-slice" : "",
-                  ].join(" ")}
-                  onMouseEnter={() => setHoverProprietario(i)}
-                />
-              ))}
-
-              <circle cx="0" cy="0" r="60" fill="#ffffff" />
-              <text x="0" y="-6" textAnchor="middle" fontWeight="700" fontSize="16" fill="#1f2933">
-                Top 10
-              </text>
-              <text x="0" y="18" textAnchor="middle" fontSize="12" fill="#666">
-                Área de Lote
-              </text>
-            </g>
-          </svg>
-        </div>
-
-        <div className="legend-box">
-          <div className="legend-list" onMouseLeave={() => setHoverProprietario(null)}>
-            {proprietarios.map((d, i) => (
-              <div
-                className={[
-                  "legend-item",
-                  isDimmed(hoverProprietario, i) ? "dimmed" : "",
-                  hoverProprietario === i ? "hovered" : "",
-                ].join(" ")}
-                key={`lp-${i}`}
-                onMouseEnter={() => setHoverProprietario(i)}
+            <div className="chart-box">
+              <svg
+                width="340"
+                height="340"
+                viewBox="0 0 340 340"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Área de Lote por Proprietário (Top 10)"
+                onMouseLeave={() => setHoverProprietario(null)}
               >
-                <div className={`legend-swatch swatch-${i + 1}`}></div>
-                <div className="legend-label">{d.label}</div>
-                <div className="legend-value">{d.value}%</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                <g transform="translate(170,170)">
+                  {slicesProprietario.map(({ path, i }) => (
+                    <path
+                      key={`p-${i}`}
+                      d={path}
+                      fill={`var(--blue-${i + 1})`}
+                      stroke="#fff"
+                      strokeWidth="2"
+                      className={[
+                        isDimmed(hoverProprietario, i) ? "dimmed" : "",
+                        hoverProprietario === i ? "hovered-slice" : "",
+                      ].join(" ")}
+                      onMouseEnter={() => setHoverProprietario(i)}
+                    />
+                  ))}
 
-      {/* ===== 2 CARDS DE BARRAS LADO A LADO ===== */}
-      <div className="bar-cards-row">
-        {/* ===== GRÁFICO 1 ===== */}
-        <section className="dados-card bar-card">
-          <div className="chart-header-left">Proprietários por Quantidade de Imóveis</div>
+                  <circle cx="0" cy="0" r="60" fill="#ffffff" />
+                  <text x="0" y="-6" textAnchor="middle" fontWeight="700" fontSize="16" fill="#1f2933">
+                    Top 10
+                  </text>
+                  <text x="0" y="18" textAnchor="middle" fontSize="12" fill="#666">
+                    Área de Lote
+                  </text>
+                </g>
+              </svg>
+            </div>
 
-          <div className="bar-chart-wrap">
-            {/* PLOT */}
-            <div
-              className="bar-plot"
-              ref={barAreaRef1}
-              onMouseLeave={() => setBarTip1(null)}
-            >
-              <div className="bar-ylabels" aria-hidden="true">
-                <div>80</div>
-                <div>60</div>
-                <div>40</div>
-                <div>20</div>
-                <div>0</div>
-              </div>
-
-              <div className="bar-grid" aria-hidden="true">
-                <div className="bar-grid-line" style={{ top: "0%" }} />
-                <div className="bar-grid-line" style={{ top: "25%" }} />
-                <div className="bar-grid-line" style={{ top: "50%" }} />
-                <div className="bar-grid-line" style={{ top: "75%" }} />
-                <div className="bar-grid-line" style={{ top: "100%" }} />
-
-                {Array.from({ length: 11 }).map((_, idx) => (
+            <div className="legend-box">
+              <div className="legend-list" onMouseLeave={() => setHoverProprietario(null)}>
+                {proprietarios.map((d, i) => (
                   <div
-                    key={`v1-${idx}`}
-                    className="bar-grid-vline"
-                    style={{ left: `${(idx / 10) * 100}%` }}
-                  />
+                    className={[
+                      "legend-item",
+                      isDimmed(hoverProprietario, i) ? "dimmed" : "",
+                      hoverProprietario === i ? "hovered" : "",
+                    ].join(" ")}
+                    key={`lp-${i}`}
+                    onMouseEnter={() => setHoverProprietario(i)}
+                  >
+                    <div className={`legend-swatch swatch-${i + 1}`}></div>
+                    <div className="legend-label">{d.label}</div>
+                    <div className="legend-value">{d.value}%</div>
+                  </div>
                 ))}
               </div>
+            </div>
+          </section>
 
-              {barTip1 && (
-                <div className="bar-tooltip" style={{ left: barTip1.x, top: barTip1.y }}>
-                  <div className="bar-tooltip-title">{barTip1.label}</div>
-                  <div className="bar-tooltip-value">{barTip1.valueText}</div>
-                </div>
-              )}
+          {/* ===== 2 CARDS DE BARRAS LADO A LADO ===== */}
+          <div className="bar-cards-row">
+            {/* ===== GRÁFICO 1 ===== */}
+            <section className="dados-card bar-card">
+              <div className="chart-header-left">Proprietários por Quantidade de Imóveis</div>
 
-              <div className="bars-row">
-                {proprietariosImoveisQtd.map((item, i) => {
-                  const maxY = 80;
-                  const pct = Math.max(0, Math.min(100, (item.value / maxY) * 100));
-                  const valueText = `${item.value} Imóveis`;
+              <div className="bar-chart-wrap">
+                {/* PLOT */}
+                <div
+                  className="bar-plot"
+                  ref={barAreaRef1}
+                  onMouseLeave={() => setBarTip1(null)}
+                >
+                  <div className="bar-ylabels" aria-hidden="true">
+                    <div>80</div>
+                    <div>60</div>
+                    <div>40</div>
+                    <div>20</div>
+                    <div>0</div>
+                  </div>
 
-                  return (
-                    <div className="bar-col" key={`qtd-${i}`}>
+                  <div className="bar-grid" aria-hidden="true">
+                    <div className="bar-grid-line" style={{ top: "0%" }} />
+                    <div className="bar-grid-line" style={{ top: "25%" }} />
+                    <div className="bar-grid-line" style={{ top: "50%" }} />
+                    <div className="bar-grid-line" style={{ top: "75%" }} />
+                    <div className="bar-grid-line" style={{ top: "100%" }} />
+
+                    {Array.from({ length: 11 }).map((_, idx) => (
                       <div
-                        className="bar-rect"
-                        style={{ height: `${pct}%` }}
+                        key={`v1-${idx}`}
+                        className="bar-grid-vline"
+                        style={{ left: `${(idx / 10) * 100}%` }}
+                      />
+                    ))}
+                  </div>
+
+                  {barTip1 && (
+                    <div className="bar-tooltip" style={{ left: barTip1.x, top: barTip1.y }}>
+                      <div className="bar-tooltip-title">{barTip1.label}</div>
+                      <div className="bar-tooltip-value">{barTip1.valueText}</div>
+                    </div>
+                  )}
+
+                  <div className="bars-row">
+                    {proprietariosImoveisQtd.map((item, i) => {
+                      const maxY = 80;
+                      const pct = Math.max(0, Math.min(100, (item.value / maxY) * 100));
+                      const valueText = `${item.value} Imóveis`;
+
+                      return (
+                        <div className="bar-col" key={`qtd-${i}`}>
+                          <div
+                            className="bar-rect"
+                            style={{ height: `${pct}%` }}
+                            onMouseEnter={(e) => handleTip(e, item, setBarTip1, barAreaRef1, valueText)}
+                            onMouseMove={(e) => handleTip(e, item, setBarTip1, barAreaRef1, valueText)}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* labels fora do plot */}
+                <div className="bar-xlabels">
+                  {proprietariosImoveisQtd.map((item, i) => {
+                    const valueText = `${item.value} imóveis`;
+                    return (
+                      <div
+                        key={`xl1-${i}`}
+                        className="bar-xlabel"
+                        title={item.label}
                         onMouseEnter={(e) => handleTip(e, item, setBarTip1, barAreaRef1, valueText)}
                         onMouseMove={(e) => handleTip(e, item, setBarTip1, barAreaRef1, valueText)}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* labels fora do plot */}
-            <div className="bar-xlabels">
-              {proprietariosImoveisQtd.map((item, i) => {
-                const valueText = `${item.value} imóveis`;
-                return (
-                  <div
-                    key={`xl1-${i}`}
-                    className="bar-xlabel"
-                    title={item.label}
-                    onMouseEnter={(e) => handleTip(e, item, setBarTip1, barAreaRef1, valueText)}
-                    onMouseMove={(e) => handleTip(e, item, setBarTip1, barAreaRef1, valueText)}
-                  >
-                    {item.label}
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="bar-source">
-              Fonte: <b>Planurb</b> - 2025
-            </div>
-          </div>
-        </section>
-
-        {/* ===== GRÁFICO 2 ===== */}
-        <section className="dados-card bar-card">
-          <div className="chart-header-left">Proprietários por Valor Acumulado em Imóveis</div>
-
-          <div className="bar-chart-wrap">
-            {/* PLOT */}
-            <div
-              className="bar-plot"
-              ref={barAreaRef2}
-              onMouseLeave={() => setBarTip2(null)}
-            >
-              <div className="bar-ylabels" aria-hidden="true">
-                <div>1,5 bi</div>
-                <div>1,0 bi</div>
-                <div>0,5 bi</div>
-                <div>0</div>
-              </div>
-
-              <div className="bar-grid" aria-hidden="true">
-                <div className="bar-grid-line" style={{ top: "0%" }} />
-                <div className="bar-grid-line" style={{ top: "33.333%" }} />
-                <div className="bar-grid-line" style={{ top: "66.666%" }} />
-                <div className="bar-grid-line" style={{ top: "100%" }} />
-
-                {Array.from({ length: 11 }).map((_, idx) => (
-                  <div
-                    key={`v2-${idx}`}
-                    className="bar-grid-vline"
-                    style={{ left: `${(idx / 10) * 100}%` }}
-                  />
-                ))}
-              </div>
-
-              {barTip2 && (
-                <div className="bar-tooltip" style={{ left: barTip2.x, top: barTip2.y }}>
-                  <div className="bar-tooltip-title">{barTip2.label}</div>
-                  <div className="bar-tooltip-value">{barTip2.valueText}</div>
+                      >
+                        {item.label}
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
 
-              <div className="bars-row">
-                {proprietariosValorAcumulado.map((item, i) => {
-                  const maxY = 1500000000;
-                  const pct = Math.max(0, Math.min(100, (item.value / maxY) * 100));
-                  const valueText = moneyBRL.format(item.value);
+                <div className="bar-source">
+                  Fonte: <b>Planurb</b> - 2025
+                </div>
+              </div>
+            </section>
 
-                  return (
-                    <div className="bar-col" key={`val-${i}`}>
+            {/* ===== GRÁFICO 2 ===== */}
+            <section className="dados-card bar-card">
+              <div className="chart-header-left">Proprietários por Valor Acumulado em Imóveis</div>
+
+              <div className="bar-chart-wrap">
+                {/* PLOT */}
+                <div
+                  className="bar-plot"
+                  ref={barAreaRef2}
+                  onMouseLeave={() => setBarTip2(null)}
+                >
+                  <div className="bar-ylabels" aria-hidden="true">
+                    <div>1,5 bi</div>
+                    <div>1,0 bi</div>
+                    <div>0,5 bi</div>
+                    <div>0</div>
+                  </div>
+
+                  <div className="bar-grid" aria-hidden="true">
+                    <div className="bar-grid-line" style={{ top: "0%" }} />
+                    <div className="bar-grid-line" style={{ top: "33.333%" }} />
+                    <div className="bar-grid-line" style={{ top: "66.666%" }} />
+                    <div className="bar-grid-line" style={{ top: "100%" }} />
+
+                    {Array.from({ length: 11 }).map((_, idx) => (
                       <div
-                        className="bar-rect"
-                        style={{ height: `${pct}%` }}
+                        key={`v2-${idx}`}
+                        className="bar-grid-vline"
+                        style={{ left: `${(idx / 10) * 100}%` }}
+                      />
+                    ))}
+                  </div>
+
+                  {barTip2 && (
+                    <div className="bar-tooltip" style={{ left: barTip2.x, top: barTip2.y }}>
+                      <div className="bar-tooltip-title">{barTip2.label}</div>
+                      <div className="bar-tooltip-value">{barTip2.valueText}</div>
+                    </div>
+                  )}
+
+                  <div className="bars-row">
+                    {proprietariosValorAcumulado.map((item, i) => {
+                      const maxY = 1500000000;
+                      const pct = Math.max(0, Math.min(100, (item.value / maxY) * 100));
+                      const valueText = moneyBRL.format(item.value);
+
+                      return (
+                        <div className="bar-col" key={`val-${i}`}>
+                          <div
+                            className="bar-rect"
+                            style={{ height: `${pct}%` }}
+                            onMouseEnter={(e) => handleTip(e, item, setBarTip2, barAreaRef2, valueText)}
+                            onMouseMove={(e) => handleTip(e, item, setBarTip2, barAreaRef2, valueText)}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* labels fora do plot */}
+                <div className="bar-xlabels">
+                  {proprietariosValorAcumulado.map((item, i) => {
+                    const valueText = moneyBRL.format(item.value);
+                    return (
+                      <div
+                        key={`xl2-${i}`}
+                        className="bar-xlabel"
+                        title={item.label}
                         onMouseEnter={(e) => handleTip(e, item, setBarTip2, barAreaRef2, valueText)}
                         onMouseMove={(e) => handleTip(e, item, setBarTip2, barAreaRef2, valueText)}
-                      />
-                    </div>
-                  );
-                })}
+                      >
+                        {item.label}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="bar-source">
+                  Fonte: <b>Planurb</b> - 2025
+                </div>
               </div>
-            </div>
-
-            {/* labels fora do plot */}
-            <div className="bar-xlabels">
-              {proprietariosValorAcumulado.map((item, i) => {
-                const valueText = moneyBRL.format(item.value);
-                return (
-                  <div
-                    key={`xl2-${i}`}
-                    className="bar-xlabel"
-                    title={item.label}
-                    onMouseEnter={(e) => handleTip(e, item, setBarTip2, barAreaRef2, valueText)}
-                    onMouseMove={(e) => handleTip(e, item, setBarTip2, barAreaRef2, valueText)}
-                  >
-                    {item.label}
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="bar-source">
-              Fonte: <b>Planurb</b> - 2025
-            </div>
+            </section>
           </div>
-        </section>
-      </div>
+        </>
+      )}
     </>
   );
 }
