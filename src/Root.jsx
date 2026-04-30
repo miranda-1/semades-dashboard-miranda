@@ -70,7 +70,7 @@ const indicadores = [
     subtitulo:
       "Programa de incentivos para o desenvolvimento econômico e social de Campo Grande",
     posicao: "7º",
-    link: "https://lookerstudio.google.com/reporting/a31d117e-2e39-46dd-832d-ce27398cd59c",
+    link: "https://lookerstudio.google.com/reporting/a6ee1b6a-e946-4f6b-96df-7d68c22f1d45/page/rrOeF",
   },
 ];
 
