@@ -184,6 +184,17 @@ export default function HomePage() {
     };
   }, [notes]);
 
+  // Modal de nota em camada fixa: trava scroll da página enquanto aberto.
+  useEffect(() => {
+    if (!showNoteModal) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showNoteModal]);
+
   // Navegação do carrossel
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % newsItems.length);
