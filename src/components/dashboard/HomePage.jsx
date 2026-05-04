@@ -463,7 +463,7 @@ export default function HomePage() {
       </section>
 
       {/* Seção de Eventos Animados do Host */}
-      <EventCarousel />
+      <EventCarousel notes={notes} />
 
       {/* ===== Modal de criação de nota (apenas demonstração em memória) ===== */}
       {showNoteModal && (

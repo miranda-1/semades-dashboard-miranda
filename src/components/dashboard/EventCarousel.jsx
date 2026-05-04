@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import '../../styles/EventCarousel.css';
 
-export default function EventCarousel() {
+export default function EventCarousel({ notes = [] }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   // Dados de exemplo de eventos do Host
-  const [hostEvents] = useState([
+  const hostEvents = [
     {
       id: 1,
       title: 'Reunião Ambiental',
@@ -61,7 +61,35 @@ export default function EventCarousel() {
       contact: '(67) 3314-8004',
       link: 'https://www.semadesc.ms.gov.br/visitas'
     },
-  ]);
+  ];
+
+  const noteEvents = useMemo(() => {
+    return notes
+      .filter((note) => note?.date instanceof Date)
+      .map((note, index) => {
+        const day = String(note.date.getDate()).padStart(2, '0');
+        const month = String(note.date.getMonth() + 1).padStart(2, '0');
+        const year = note.date.getFullYear();
+        const firstLink = (note.attachments || []).find(
+          (att) => att?.type === 'link' && att?.url
+        );
+
+        return {
+          id: `note-${note.id || index}`,
+          title: note.title || `Nota ${day}/${month}`,
+          date: `${day}/${month}/${year}`,
+          time: 'Sem horário',
+          location: note.note ? note.note : 'Nota adicionada no calendário',
+          icon: '📝',
+          color: 'teal',
+          contact: '',
+          link: firstLink?.url || '',
+          isUserNote: true,
+        };
+      });
+  }, [notes]);
+
+  const allEvents = [...noteEvents, ...hostEvents];
 
   return (
     <section className="event-carousel-section">
@@ -70,7 +98,7 @@ export default function EventCarousel() {
       <div className="events-carousel-wrapper">
         <div className="events-carousel-track">
           {/* Duplicamos os eventos para criar efeito contínuo */}
-          {[...hostEvents, ...hostEvents].map((event, idx) => (
+          {[...allEvents, ...allEvents].map((event, idx) => (
             <div 
               key={`${event.id}-${idx}`} 
               className={`event-card event-card-${event.color}`}
