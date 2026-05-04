@@ -768,6 +768,95 @@ img[src*="prefcg1"] {
 .navbar .nav-link svg,
 .navbar .btn-logout svg { height: 16px; width: 16px; }
 
+/* ===== Modal de nota ===== */
+.note-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(2, 10, 18, 0.62);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.note-modal {
+  width: min(760px, 100%);
+  max-height: min(85vh, 820px);
+  overflow-y: auto;
+  background: linear-gradient(135deg, #0d1b2a 0%, #1a3a52 45%, #0f5a7a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.45);
+}
+
+.note-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.note-modal .link-row {
+  display: flex;
+  gap: 8px;
+}
+
+.note-modal .link-row input {
+  flex: 1 1 auto;
+}
+
+.note-modal .link-row button,
+.note-modal .btn-cancel,
+.note-modal .btn-save,
+.note-modal .attachments-list button {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  padding: 8px 11px;
+}
+
+.note-modal .link-row button,
+.note-modal .btn-save {
+  background: linear-gradient(180deg, #00bfa5, #0468a6);
+  color: #fff;
+}
+
+.note-modal .btn-cancel,
+.note-modal .attachments-list button {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.note-modal .attachments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.note-modal .attachment-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 8px 10px;
+}
+
+.note-modal .attachment-row a {
+  color: #dff2ff;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.note-modal .attachment-row a:hover {
+  text-decoration: underline;
+}
+
 /* placeholder estilo "cinza interno" e some ao focar/escrever */
 .note-modal input::placeholder,
 .note-modal textarea::placeholder {
@@ -827,6 +916,22 @@ img[src*="prefcg1"] {
 .note-modal .file-faux .file-placeholder::placeholder {
   color: rgba(255,255,255,0.85);
   opacity: 1;
+}
+
+@media (max-width: 700px) {
+  .note-modal-overlay {
+    padding: 10px;
+  }
+
+  .note-modal {
+    width: 100%;
+    max-height: 90vh;
+    padding: 14px;
+  }
+
+  .note-modal .link-row {
+    flex-direction: column;
+  }
 }
 
 /* widget visual para links adicionados (chips) */

@@ -24,7 +24,7 @@ const indicadores = [
     fonte: "CAGED, 2025",
     subtitulo: "Geração de empregos formais e informais",
     posicao: "2º",
-    link: "https://lookerstudio.google.com/reporting/38fdf9ca-ce21-4bb8-8c32-26a0cf7cbe86",
+    link: "https://lookerstudio.google.com/reporting/bb526010-5c89-4b87-93d9-c75dd8a571bb/page/mT2bF",
   },
   {
     icone: "🐄",

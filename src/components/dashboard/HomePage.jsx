@@ -19,42 +19,47 @@ export default function HomePage() {
     files: [], // { id, name, url, type }
   });
 
-  // Dados de exemplo para o carrossel de notícias
+  // Notícias atuais (prévia com 5 itens)
   const newsItems = [
     {
       id: 1,
-      title: 'Parques e Áreas Verdes',
-      description: 'Campo Grande é referência em gestão ambiental com seus belos parques urbanos e áreas de lazer.',
-      image: '/imagens-cg/campo1.jpg',
-      date: '20/01/2026',
+      title: 'Campo Grande lidera o Mapa do Turismo no Brasil',
+      description: 'Campo Grande mantém a classificação de município turístico no Mapa do Turismo Brasileiro, reforçando sua relevância para políticas públicas e investimentos no setor.',
+      image: '/imagens-cg/noticias-2026-05/noticia2.png',
+      date: '29/04/2026',
+      link: 'https://www.campogrande.ms.gov.br/cgnoticias/noticia/campo-grande-lidera-o-mapa-do-turismo-no-brasil/',
     },
     {
       id: 2,
-      title: 'Sustentabilidade e Reciclagem',
-      description: 'Programa de coleta seletiva e gestão de resíduos para uma cidade mais limpa e sustentável.',
-      image: '/imagens-cg/campo2.jpg',
-      date: '18/01/2026',
+      title: 'Campo Grande celebra três anos como Capital do Birdwatching',
+      description: 'A data marca três anos da Lei n. 7.023, fortalecendo a observação de aves como prática que integra conservação ambiental, educação e desenvolvimento sustentável.',
+      image: '/imagens-cg/noticias-2026-05/noticia3.png',
+      date: '28/04/2026',
+      link: 'https://www.campogrande.ms.gov.br/cgnoticias/noticia/campo-grande-celebra-tres-anos-como-capital-do-birdwatching/',
     },
     {
       id: 3,
-      title: 'Expansão Urbana Planejada',
-      description: 'Desenvolvimento integrado que combina crescimento econômico com preservação ambiental.',
-      image: '/imagens-cg/campo3.jpg',
-      date: '15/01/2026',
+      title: 'Semades apresenta metas com foco em inovação e moradia',
+      description: 'A Prefeitura de Campo Grande realizou mais uma etapa da assinatura do Contrato de Gestão 2026, com balanço das ações e alinhamento de metas e prioridades para o próximo período.',
+      image: '/imagens-cg/noticias-2026-05/noticia4.png',
+      date: '12/03/2026',
+      link: 'https://www.campogrande.ms.gov.br/cgnoticias/noticia/semades-apresenta-metas-com-foco-em-inovacao-e-moradia/',
     },
     {
       id: 4,
-      title: 'Campo Grande em Crescimento',
-      description: 'A capital do estado investe em infraestrutura moderna e qualidade de vida para seus cidadãos.',
-      image: '/imagens-cg/campo4.jpg',
-      date: '12/01/2026',
+      title: 'PrefCG investe mais de R$ 1,13 milhão em novas praças na Capital',
+      description: 'A Prefeitura de Campo Grande vai investir mais de R$ 1,13 milhão na construção de novas praças em diferentes regiões da Capital.',
+      image: '/imagens-cg/noticias-2026-05/noticia5.png',
+      date: '23/03/2026',
+      link: 'https://www.campogrande.ms.gov.br/cgnoticias/noticia/prefcg-investe-mais-de-r-113-milhao-em-novas-pracas-na-capital/',
     },
     {
       id: 5,
-      title: 'Inovação e Desenvolvimento',
-      description: 'A SEMADES promove soluções inteligentes para o desenvolvimento sustentável de Campo Grande.',
-      image: '/imagens-cg/campo5.jpg',
-      date: '10/01/2026',
+      title: 'PrefCG lança aplicativo +CG e wi-fi gratuito em 187 pontos da cidade',
+      description: 'Campo Grande está ampliando o acesso gratuito à internet e desenvolvendo novas ferramentas digitais para facilitar o acesso da população aos serviços públicos.',
+      image: '/imagens-cg/noticias-2026-05/noticia6.png',
+      date: '12/03/2026',
+      link: 'https://www.campogrande.ms.gov.br/cgnoticias/noticia/prefcg-lanca-aplicativo-cg-e-wi-fi-gratuito-em-187-pontos-da-cidade/',
     },
   ];
 
@@ -179,6 +184,17 @@ export default function HomePage() {
     };
   }, [notes]);
 
+  // Modal de nota em camada fixa: trava scroll da página enquanto aberto.
+  useEffect(() => {
+    if (!showNoteModal) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [showNoteModal]);
+
   // Navegação do carrossel
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % newsItems.length);
@@ -208,11 +224,12 @@ export default function HomePage() {
     touchStartX.current = null;
   };
 
-  // Autoplay do carrossel a cada 4 segundos
+  // Autoplay do carrossel (mantÃ©m setas/indicadores funcionando)
   useEffect(() => {
+    if (newsItems.length < 2) return undefined;
     const intervalId = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % newsItems.length);
-    }, 4000);
+    }, 5000);
 
     return () => clearInterval(intervalId);
   }, [newsItems.length]);
@@ -261,7 +278,7 @@ export default function HomePage() {
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
                 <a
-                  href="https://www.semadesc.ms.gov.br/noticias/"
+                  href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="read-more-btn"
@@ -446,7 +463,7 @@ export default function HomePage() {
       </section>
 
       {/* Seção de Eventos Animados do Host */}
-      <EventCarousel />
+      <EventCarousel notes={notes} />
 
       {/* ===== Modal de criação de nota (apenas demonstração em memória) ===== */}
       {showNoteModal && (
